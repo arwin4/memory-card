@@ -452,11 +452,13 @@ export default async function fetchImages() {
       'https://api.pexels.com/v1/search/?page=2&per_page=15&query=train',
   };
 
+  // TODO: Error handling
   // const imageRequest = await client.photos.search({ query, per_page: 15 });
 
-  const images = [...imageRequest.photos].map((image) => {
-    return { author: image.photographer, url: image.src.large };
-  });
+  const images = [...imageRequest.photos].map((image) => ({
+    author: image.photographer,
+    url: image.src.large,
+  }));
 
   return images;
 }
