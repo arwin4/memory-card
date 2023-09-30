@@ -4,13 +4,10 @@ import { React, useState } from 'react';
 export default function ImageGallery({
   allImages,
   setGameLost,
+  setGameWon,
   increaseScore,
 }) {
   const [clickedImages, setClickedImages] = useState(new Set());
-  console.log(clickedImages);
-
-  // TODO: if all images have been seen
-  // show win screen
 
   /**
    * Display a random selection of images, making sure at least one image has
@@ -46,7 +43,12 @@ export default function ImageGallery({
     });
   }
 
-  const imagesToShow = pickImagesToShow();
+  let imagesToShow;
+  if (clickedImages.size === allImages.length) {
+    setGameWon(true);
+  } else {
+    imagesToShow = pickImagesToShow();
+  }
 
   return (
     <div className="image-carousel">

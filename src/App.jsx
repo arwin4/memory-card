@@ -7,6 +7,7 @@ import Score from './components/Score';
 function App() {
   const [allImages, setImages] = useState([]);
   const [gameLost, setGameLost] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
   const [score, setScore] = useState({ currentScore: 0, highScore: 0 });
 
   useEffect(() => {
@@ -39,6 +40,14 @@ function App() {
       </>
     );
 
+  if (gameWon)
+    return (
+      <>
+        <Score score={score} />
+        <h1>Wait what?! You actually did it! Amazing job!</h1>
+      </>
+    );
+
   // Display ImageGallery only after images have been fetched
   if (allImages.length !== 0) {
     return (
@@ -47,6 +56,7 @@ function App() {
         <ImageGallery
           allImages={allImages}
           setGameLost={setGameLost}
+          setGameWon={setGameWon}
           increaseScore={increaseScore}
         />
       </>
