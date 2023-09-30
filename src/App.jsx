@@ -8,10 +8,7 @@ function App() {
   const [allImages, setImages] = useState([]);
   const [gameLost, setGameLost] = useState(false);
   const [score, setScore] = useState(0);
-
-  const increaseScore = () => {
-    setScore(score + 1);
-  };
+  const [highScore, setHighScore] = useState(0);
 
   useEffect(() => {
     async function prepareImages() {
@@ -20,7 +17,24 @@ function App() {
     prepareImages();
   }, []);
 
-  if (gameLost) return <h1>You lose</h1>;
+  const increaseScore = () => {
+    setScore(score + 1);
+  };
+
+  function resetGame() {
+    setScore(0);
+    setGameLost(false);
+  }
+
+  if (gameLost)
+    return (
+      <>
+        <h1>You lose</h1>
+        <button type="button" onClick={resetGame}>
+          Play again
+        </button>
+      </>
+    );
 
   // Display ImageGallery only after images have been fetched
   if (allImages.length !== 0) {
