@@ -31,7 +31,8 @@ function App() {
   if (gameLost)
     return (
       <>
-        <h1>You lose</h1>
+        <Score score={score} />
+        <h1>You lose.</h1>
         <button type="button" onClick={resetGame}>
           Play again
         </button>
