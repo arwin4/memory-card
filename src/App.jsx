@@ -3,6 +3,7 @@ import './styles/App.css';
 import ImageGallery from './components/ImageGallery';
 import fetchImages from './utils/fetchImages';
 import Score from './components/Score';
+import GameExplanation from './components/GameExplanation';
 
 function App() {
   const [allImages, setImages] = useState([]);
@@ -34,7 +35,7 @@ function App() {
       <>
         <Score score={score} />
         <h1>You lose.</h1>
-        <button type="button" onClick={resetGame}>
+        <button type="button" className="play-again" onClick={resetGame}>
           Play again
         </button>
       </>
@@ -45,6 +46,9 @@ function App() {
       <>
         <Score score={score} />
         <h1>Wait what?! You actually did it! Amazing job!</h1>
+        <button type="button" className="play-again" onClick={resetGame}>
+          Play again
+        </button>
       </>
     );
 
@@ -52,6 +56,7 @@ function App() {
   if (allImages.length !== 0) {
     return (
       <>
+        <GameExplanation />
         <Score score={score} />
         <ImageGallery
           allImages={allImages}

@@ -14,9 +14,60 @@ body {
 #root {
   display: flex;
   flex-direction: column;
+  flex-direction: column;
   align-items: center;
   width: 90vw;
 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.play-again {
+  width: 200px;
+  height: 60px;
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.score {
+  font-size: 0.8rem;
+  display: flex;
+  width: 500px;
+  column-gap: 50px;
+  justify-content: center;
+}
+
+.image-carousel {
+  width: 80vw;
+  height: 80vh;
+  display: grid;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+
+  grid-template-columns: repeat(2, 0.3fr);
+  grid-template-columns: repeat(2, 0.3fr);
+}
+
+.image-carousel button {
+  border: none;
+  border-radius: 1000px;
+
+  background-color: none;
+}
+
+.image-wrapper {
+  transition: transform 250ms;
+}
+
+.image-wrapper:hover {
+  transform: scale(1.05);
+}
+
+img {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 10px;
 }

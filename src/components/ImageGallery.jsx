@@ -54,7 +54,11 @@ export default function ImageGallery({
     <div className="image-carousel">
       {imagesToShow.map((image) => (
         <div key={image.id} className="image-wrapper">
-          <button type="button" onClick={() => handleImageClick(image.id)}>
+          <button
+            className="image"
+            type="button"
+            onClick={() => handleImageClick(image.id)}
+          >
             <img src={image.url} alt="semi-randomly chosen" />
             <figcaption>{`Credit: ${image.author}`}</figcaption>
           </button>
