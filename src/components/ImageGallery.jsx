@@ -1,17 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useEffect, React, useState } from 'react';
-import fetchImages from '../utils/fetchImages';
+import { React, useState } from 'react';
 
-export default function ImageGallery({ allImages, setImages }) {
+export default function ImageGallery({ allImages }) {
   const [clickedImages, setClickedImages] = useState([]);
   console.log(clickedImages);
-
-  useEffect(() => {
-    async function prepareImages() {
-      setImages(await fetchImages());
-    }
-    prepareImages();
-  }, []);
 
   // Source: https://bobbyhadz.com/blog/javascript-get-multiple-random-elements-from-array
   // Returns 5 random images
