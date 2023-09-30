@@ -458,6 +458,7 @@ export default async function fetchImages() {
   const images = [...imageRequest.photos].map((image) => ({
     author: image.photographer,
     url: image.src.large,
+    id: crypto.randomUUID(),
   }));
 
   return images;
