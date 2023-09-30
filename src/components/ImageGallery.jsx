@@ -35,9 +35,9 @@ export default function ImageGallery({
   }
 
   function handleImageClick(id) {
-    if (clickedImages.has(id)) setGameLost(true);
-
-    increaseScore();
+    if (clickedImages.has(id)) {
+      setGameLost(true);
+    } else increaseScore();
 
     setClickedImages((prev) => {
       const next = new Set(prev);

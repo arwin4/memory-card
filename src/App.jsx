@@ -7,8 +7,7 @@ import Score from './components/Score';
 function App() {
   const [allImages, setImages] = useState([]);
   const [gameLost, setGameLost] = useState(false);
-  const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(0);
+  const [score, setScore] = useState({ currentScore: 0, highScore: 0 });
 
   useEffect(() => {
     async function prepareImages() {
@@ -18,11 +17,14 @@ function App() {
   }, []);
 
   const increaseScore = () => {
-    setScore(score + 1);
+    setScore({ ...score, currentScore: (score.currentScore += 1) });
+
+    if (score.currentScore > score.highScore)
+      setScore({ ...score, highScore: score.currentScore });
   };
 
   function resetGame() {
-    setScore(0);
+    setScore({ ...score, currentScore: 0 });
     setGameLost(false);
   }
 
