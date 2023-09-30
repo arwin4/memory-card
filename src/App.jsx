@@ -13,7 +13,7 @@ function App() {
     prepareImages();
   }, []);
 
-  return <ImageGallery allImages={allImages} setImages={setImages} />;
+  return <ImageGallery allImages={allImages} />;
 }
 
 export default App;
