@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
 import { React, useState } from 'react';
 
-export default function ImageGallery({ allImages }) {
+export default function ImageGallery({
+  allImages,
+  setGameLost,
+  increaseScore,
+}) {
   const [clickedImages, setClickedImages] = useState(new Set());
   console.log(clickedImages);
 
@@ -31,6 +35,10 @@ export default function ImageGallery({ allImages }) {
   }
 
   function handleImageClick(id) {
+    if (clickedImages.has(id)) setGameLost(true);
+
+    increaseScore();
+
     setClickedImages((prev) => {
       const next = new Set(prev);
       next.add(id);

@@ -2,9 +2,16 @@ import { useState, React, useEffect } from 'react';
 import './styles/App.css';
 import ImageGallery from './components/ImageGallery';
 import fetchImages from './utils/fetchImages';
+import Score from './components/Score';
 
 function App() {
   const [allImages, setImages] = useState([]);
+  const [gameLost, setGameLost] = useState(false);
+  const [score, setScore] = useState(0);
+
+  const increaseScore = () => {
+    setScore(score + 1);
+  };
 
   useEffect(() => {
     async function prepareImages() {
@@ -13,9 +20,21 @@ function App() {
     prepareImages();
   }, []);
 
+  if (gameLost) return <h1>You lose</h1>;
+
   // Display ImageGallery only after images have been fetched
   if (allImages.length !== 0) {
-    return <ImageGallery allImages={allImages} />;
+    return (
+      <>
+        <Score score={score} />
+        <ImageGallery
+          allImages={allImages}
+          setGameLost={setGameLost}
+          increaseScore={increaseScore}
+        />
+        ;
+      </>
+    );
   }
   return <h1>Loading...</h1>;
 }
