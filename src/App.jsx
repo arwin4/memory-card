@@ -48,7 +48,6 @@ function App() {
           setGameLost={setGameLost}
           increaseScore={increaseScore}
         />
-        ;
       </>
     );
   }
