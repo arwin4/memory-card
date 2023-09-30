@@ -13,7 +13,11 @@ function App() {
     prepareImages();
   }, []);
 
-  return <ImageGallery allImages={allImages} />;
+  // Display ImageGallery only after images have been fetched
+  if (allImages.length !== 0) {
+    return <ImageGallery allImages={allImages} />;
+  }
+  return <h1>Loading...</h1>;
 }
 
 export default App;
