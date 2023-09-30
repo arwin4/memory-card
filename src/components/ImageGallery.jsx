@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useEffect, React } from 'react';
+import { useEffect, React, useState } from 'react';
 import fetchImages from '../utils/fetchImages';
 
 export default function ImageGallery({ allImages, setImages }) {
+  const [clickedImages, setClickedImages] = useState([]);
+  console.log(clickedImages);
+
   useEffect(() => {
     async function prepareImages() {
       setImages(await fetchImages());
@@ -17,15 +20,20 @@ export default function ImageGallery({ allImages, setImages }) {
     return shuffled.slice(0, 5);
   }
 
+  function handleImageClick(id) {
+    setClickedImages([...clickedImages, id]);
+  }
+
   const randomImages = pickRandomImages();
-  console.log(pickRandomImages());
 
   return (
     <div className="image-carousel">
       {randomImages.map((image) => (
         <div key={image.id} className="image-wrapper">
-          <img src={image.url} alt="semi-randomly chosen" />
-          <figcaption>{`Credit: ${image.author}`}</figcaption>
+          <button type="button" onClick={() => handleImageClick(image.id)}>
+            <img src={image.url} alt="semi-randomly chosen" />
+            <figcaption>{`Credit: ${image.author}`}</figcaption>
+          </button>
         </div>
       ))}
     </div>
