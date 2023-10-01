@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { React, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function ImageGallery({
   allImages,
@@ -67,3 +67,16 @@ export default function ImageGallery({
     </div>
   );
 }
+
+ImageGallery.propTypes = {
+  allImages: PropTypes.arrayOf(
+    PropTypes.shape({
+      author: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  setGameLost: PropTypes.func.isRequired,
+  setGameWon: PropTypes.func.isRequired,
+  increaseScore: PropTypes.func.isRequired,
+};

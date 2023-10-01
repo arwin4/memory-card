@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function Score({ score }) {
   return (
@@ -9,3 +9,10 @@ export default function Score({ score }) {
     </div>
   );
 }
+
+Score.propTypes = {
+  score: PropTypes.shape({
+    currentScore: PropTypes.number,
+    highScore: PropTypes.number,
+  }).isRequired,
+};
