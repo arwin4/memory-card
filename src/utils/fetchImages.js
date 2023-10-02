@@ -1,5 +1,3 @@
-// import { createClient } from 'pexels';
-
 export default async function fetchImages() {
   const APIkey = import.meta.env.VITE_PEXELS;
   const query = 'train';
