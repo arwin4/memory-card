@@ -7,6 +7,9 @@ import GameExplanation from './components/GameExplanation';
 
 function App() {
   const [allImages, setImages] = useState([]);
+
+  const [error, setError] = useState(false);
+
   const [gameStarted, setGameStarted] = useState(false);
   const [gameLost, setGameLost] = useState(false);
   const [gameWon, setGameWon] = useState(false);
@@ -14,7 +17,11 @@ function App() {
 
   useEffect(() => {
     async function prepareImages() {
-      setImages(await fetchImages());
+      try {
+        setImages(await fetchImages());
+      } catch (fetchError) {
+        setError(true);
+      }
     }
     prepareImages();
   }, []);
@@ -32,6 +39,7 @@ function App() {
   }
 
   if (!gameStarted) return <GameExplanation setGameStarted={setGameStarted} />;
+  if (error) return <h1>Unable to fetch images from API.</h1>;
 
   if (gameLost)
     return (
