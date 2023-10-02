@@ -7,6 +7,7 @@ import GameExplanation from './components/GameExplanation';
 
 function App() {
   const [allImages, setImages] = useState([]);
+  const [gameStarted, setGameStarted] = useState(false);
   const [gameLost, setGameLost] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [score, setScore] = useState({ currentScore: 0, highScore: 0 });
@@ -29,6 +30,8 @@ function App() {
     setScore({ ...score, currentScore: 0 });
     setGameLost(false);
   }
+
+  if (!gameStarted) return <GameExplanation setGameStarted={setGameStarted} />;
 
   if (gameLost)
     return (
@@ -56,7 +59,6 @@ function App() {
   if (allImages.length !== 0) {
     return (
       <>
-        <GameExplanation />
         <Score score={score} />
         <ImageGallery
           allImages={allImages}
