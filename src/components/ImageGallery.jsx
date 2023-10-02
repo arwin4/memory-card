@@ -9,6 +9,11 @@ export default function ImageGallery({
 }) {
   const [clickedImages, setClickedImages] = useState(new Set());
 
+  // Preload all images to prevent unclicked images from flashing
+  allImages.forEach((image) => {
+    new Image().src = image.url;
+  });
+
   /**
    * Display a random selection of images, making sure at least one image has
    * not been picked before.
