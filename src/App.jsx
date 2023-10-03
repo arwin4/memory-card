@@ -11,7 +11,7 @@ function App() {
   const [error, setError] = useState(false);
 
   const [gameStarted, setGameStarted] = useState(false);
-  const [gameLost, setGameLost] = useState(false);
+  const [gameFinished, setGameFinished] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [score, setScore] = useState({ currentScore: 0, highScore: 0 });
 
@@ -35,13 +35,39 @@ function App() {
 
   function resetGame() {
     setScore({ ...score, currentScore: 0 });
-    setGameLost(false);
+    setGameWon(false);
+    setGameFinished(false);
+    setGameStarted(false);
   }
 
-  if (!gameStarted) return <GameExplanation setGameStarted={setGameStarted} />;
-  if (error) return <h1>Unable to fetch images from API.</h1>;
+  // Start screen
+  if (!gameStarted && !gameFinished && !gameWon)
+    return <GameExplanation setGameStarted={() => setGameStarted(true)} />;
 
-  if (gameLost)
+  // Play screen
+  if (gameStarted && !gameFinished && !gameWon) {
+    if (allImages.length === 0 && error) {
+      return <h1>Unable to fetch images from API.</h1>;
+    }
+    if (allImages.length === 0) {
+      return <h1>Loading images...</h1>;
+    }
+    // Display ImageGallery only after images have been fetched
+    return (
+      <>
+        <Score score={score} />
+        <ImageGallery
+          allImages={allImages}
+          setGameFinished={setGameFinished}
+          setGameWon={setGameWon}
+          increaseScore={increaseScore}
+        />
+      </>
+    );
+  }
+
+  // Lose screen
+  if (gameStarted && gameFinished && !gameWon)
     return (
       <>
         <Score score={score} />
@@ -52,7 +78,8 @@ function App() {
       </>
     );
 
-  if (gameWon)
+  // Win screen
+  if (gameStarted && gameFinished && gameWon)
     return (
       <>
         <Score score={score} />
@@ -62,22 +89,6 @@ function App() {
         </button>
       </>
     );
-
-  // Display ImageGallery only after images have been fetched
-  if (allImages.length !== 0) {
-    return (
-      <>
-        <Score score={score} />
-        <ImageGallery
-          allImages={allImages}
-          setGameLost={setGameLost}
-          setGameWon={setGameWon}
-          increaseScore={increaseScore}
-        />
-      </>
-    );
-  }
-  return <h1>Loading images...</h1>;
 }
 
 export default App;

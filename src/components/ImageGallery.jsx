@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function ImageGallery({
   allImages,
-  setGameLost,
+  setGameFinished,
   setGameWon,
   increaseScore,
 }) {
@@ -36,11 +36,9 @@ export default function ImageGallery({
     return images;
   }
 
-  function handleImageClick(id) {
-    if (clickedImages.has(id)) {
-      setGameLost(true);
-    } else increaseScore();
+  const imagesToShow = pickImagesToShow();
 
+  function addClickedImageToClickedImages(id) {
     setClickedImages((prev) => {
       const next = new Set(prev);
       next.add(id);
@@ -48,11 +46,25 @@ export default function ImageGallery({
     });
   }
 
-  let imagesToShow;
-  if (clickedImages.size === allImages.length) {
-    setGameWon(true);
-  } else {
-    imagesToShow = pickImagesToShow();
+  function handleImageClick(id) {
+    // Clicked before (lose the game)
+    if (clickedImages.has(id)) {
+      setGameFinished(true);
+      setGameWon(false);
+    }
+    // Not clicked before
+    else {
+      increaseScore();
+      // No more images left (win the game)
+      if (clickedImages.size === allImages.length - 1) {
+        setGameFinished(true);
+        setGameWon(true);
+      }
+      // More images left (go to next round)
+      else {
+        addClickedImageToClickedImages(id);
+      }
+    }
   }
 
   return (
@@ -81,7 +93,7 @@ ImageGallery.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  setGameLost: PropTypes.func.isRequired,
+  setGameFinished: PropTypes.func.isRequired,
   setGameWon: PropTypes.func.isRequired,
   increaseScore: PropTypes.func.isRequired,
 };
